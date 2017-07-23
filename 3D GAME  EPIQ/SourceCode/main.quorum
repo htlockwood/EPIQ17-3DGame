@@ -6,6 +6,7 @@ use Libraries.Interface.Events.KeyboardEvent
 use Libraries.Game.Graphics.Camera
 use Libraries.Game.Graphics.AmbientLight
 use Libraries.Game.Graphics.DirectionalLight
+use Libraries.Compute.Math
 
 class Main is Game
 
@@ -25,7 +26,8 @@ model:SetDescription("This is a box which has the image of a rabbit wearing glas
 
     Camera camera = GetCamera3D()
     camera:SetPosition(2, 2.5, 4)
-    camera:LookAt(0, 0, 0)
+    camera:Move(4, 8, 16)
+    camera:LookAt(0, 1, 0)
 Add(model)
 DirectionalLight light
 light:SetDirection(1, -16, -8)
@@ -50,6 +52,8 @@ SetAmbientLight(ambient)
         number newY = model:GetY() + 1 * seconds
         number newZ = model:GetZ() - 1 * seconds
         model:SetPosition(newX, newY, newZ)
+        model:Rotate(2, 3, 4, 1)
+        model:Scale(1.002, -1.001, 1.009)
     end
 
 end
