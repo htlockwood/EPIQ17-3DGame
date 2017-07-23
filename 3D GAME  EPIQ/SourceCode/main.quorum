@@ -1,0 +1,55 @@
+use Libraries.Game.Game
+use Libraries.Game.Graphics.Model
+use Libraries.Sound.Speech
+use Libraries.Game.InputMonitor
+use Libraries.Interface.Events.KeyboardEvent
+use Libraries.Game.Graphics.Camera
+use Libraries.Game.Graphics.AmbientLight
+use Libraries.Game.Graphics.DirectionalLight
+
+class Main is Game
+
+    Model model
+    Speech speech
+    InputMonitor monitor
+    KeyboardEvent keys
+
+    action Main
+        StartGame()
+    end
+
+
+    action CreateGame
+model:LoadBox(1.5, 1.5, 1.5, "hourofcode.png")
+model:SetDescription("This is a box which has the image of a rabbit wearing glasses on each side")
+
+    Camera camera = GetCamera3D()
+    camera:SetPosition(2, 2.5, 4)
+    camera:LookAt(0, 0, 0)
+Add(model)
+DirectionalLight light
+light:SetDirection(1, -16, -8)
+light:SetColor(0.3, 0.8, 0.9, 1)
+Add(light)
+model:SetX(-8)
+model:SetY(-8)
+model:SetZ(-8)
+
+AmbientLight ambient
+ambient:SetColor(0.8, 0.3, 0.3, 1)
+SetAmbientLight(ambient)
+    end
+
+    action Update(number seconds)
+        if monitor:IsKeyPressed(keys:SPACE)
+            speech:Say(model:GetDescription())
+        end
+        number newX=50 
+     
+        newX = model:GetX() + 1 * seconds
+        number newY = model:GetY() + 1 * seconds
+        number newZ = model:GetZ() - 1 * seconds
+        model:SetPosition(newX, newY, newZ)
+    end
+
+end
